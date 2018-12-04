@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
  */
 public final class ByteUtil {
 
-    /** ASCII -> JIS X 0208変換テーブル */
+    /** ASCII -> JIS X 0208 conversion table */
     private static final int[] ASCII_TO_JISX0208_TABLE = {
         // 0x20 -- 0x2f
         0x2121, 0x212a, 0x2149, 0x2174, 0x2170, 0x2173, 0x2175, 0x2147,
@@ -32,7 +32,7 @@ public final class ByteUtil {
         0x2378, 0x2379, 0x237a, 0x2150, 0x2143, 0x2151, 0x2141
     };
 
-    /** JIS X 0201 -> JIS X 0208変換テーブル */
+    /** JIS X 0201 -> JIS X 0208 conversion table*/
     private static final int[] JISX0201_TO_JISX0208_TABLE = {
         // 0xa0 -- 0xaf
         0x0000, 0x2123, 0x2156, 0x2157, 0x2122, 0x2126, 0x2572, 0x2521,
@@ -48,7 +48,7 @@ public final class ByteUtil {
         0x256a, 0x256b, 0x256c, 0x256d, 0x256f, 0x2573, 0x212b, 0x212c
     };
 
-    /** 長母音 -> 母音変換テーブル */
+    /** long vowel -> vowel conversion table */
     private static final byte[] LONG_VOWEL_TABLE = {
         0x22, /* a (21) -> A(22) */ 0x22, /* A (22) -> A(22) */
         0x24, /* i (23) -> I(24) */ 0x24, /* I (24) -> I(24) */
@@ -95,7 +95,7 @@ public final class ByteUtil {
         0x22, /* ka(75) -> A(22) */ 0x28  /* ke(76) -> E(28) */
     };
 
-    /** 濁音 -> 清音変換テーブル */
+    /** voiced consonant -> unvoiced consonant conversion table */
     private static final byte[] VOICED_CONSONANT_TABLE = {
         0x21, /* a (21) -> a (22) */ 0x22, /* A (22) -> A (22) */
         0x23, /* i (23) -> i (24) */ 0x24, /* I (24) -> I (24) */
@@ -267,10 +267,10 @@ public final class ByteUtil {
     }
 
     /**
-     * Convert to full-width characters from half-width characters in a string.
+     * Convert a string of half-width characters to a string of full-width characters.
      *
-     * @param str string that has half-width characters.
-     * @return string converted to full-width characters.
+     * @param str string of half-width characters.
+     * @return converted string of full-width characters.
      */
     public static String narrowToWide(final String str) {
         int len = str.length();
@@ -304,10 +304,10 @@ public final class ByteUtil {
     }
 
     /**
-     * Convert to half-width characters from full-width characters in a string.
+     * Convert a string of full-width characters to a string of half-width characters.
      *
-     * @param str string that has full-width characters.
-     * @return string converted to half-width characters.
+     * @param str string of full-width characters.
+     * @return converted string of half-width characters.
      */
     public static String wideToNarrow(final String str) {
         int len = str.length();
@@ -348,37 +348,37 @@ public final class ByteUtil {
     }
 
     /**
-     * Convert to JIS X 0208 code from ASCII.
+     * Convert an ASCII character code to a JIS X 0208 character code.
      *
-     * @param code ASCII code (0x20〜0x7E).
-     * @return JIS X 0208 code.
-     * @exception AssertionError if given code is outside from 0x20 to 0x7E.
+     * @param code ASCII character code (0x20〜0x7E).
+     * @return JIS X 0208 character code.
+     * @exception AssertionError if the given code is outside the range of 0x20 to 0x7E.
      */
     public static int asciiToJISX0208(final int code) {
-        if (!(0x20 <= code && code <= 0x7e)) {
+        if (!(0x20 <= code && code <= 0x7E)) {
             throw new AssertionError();
         }
         return ASCII_TO_JISX0208_TABLE[code-0x20];
     }
 
     /**
-     * Convert JIS X 0201 chars into JIS X 0208 chars.
+     * Convert a JIS X 0201 character code into a JIS X 0208 character code.
      *
-     * @param code JIS X 0201 code (0xA0〜0xDF).
-     * @return JIS X 0208 code.
-     * @exception AssertionError if given code is outside from 0xA0 to 0xDF.
+     * @param code JIS X 0201 character code (0xA0〜0xDF).
+     * @return JIS X 0208 character code.
+     * @exception AssertionError if the given code is outside the range of 0xA0 to 0xDF.
      */
     public static int jisx0201ToJISX0208(final int code) {
-        if (!(0xA0 <= code && code <= 0xdf)) {
+        if (!(0xA0 <= code && code <= 0xDF)) {
             throw new AssertionError();
         }
-        return JISX0201_TO_JISX0208_TABLE[code-0xa0];
+        return JISX0201_TO_JISX0208_TABLE[code-0xA0];
     }
 
     /**
-     * Convert a byte array  as GB 2312 character set into String.
+     * Convert a byte array of GB 2312 character codes into a String.
      *
-     * @param b byte array consist of chars in GB 2312 charset.
+     * @param b byte array of GB 2312 character codes.
      * @return converted string.
      */
     public static String gb2312ToString(final byte[] b) {
@@ -386,9 +386,9 @@ public final class ByteUtil {
     }
 
     /**
-     * Convert a byte array consist of GB 2312 chars into String.
+     * Convert a byte array of GB 2312 character codes into a String.
      *
-     * @param b byte array consist of chars in GB 2312 charset.
+     * @param b byte array of GB 2312 character codes.
      * @param offset offset to be converted.
      * @param len length to be converted.
      * @return converted string.
@@ -417,7 +417,7 @@ public final class ByteUtil {
     /**
      * Convert a byte array as JIS X 0208 into java String.
      *
-     * @param b byte array consist of chars in JIS X 0208 charset.
+     * @param b byte array of JIS X 0208 charset.
      * @return converted string.
      */
     public static String jisx0208ToString(final byte[] b) {
@@ -427,10 +427,11 @@ public final class ByteUtil {
     /**
      * Convert a partial byte array into JIS X 0208 string.
      *
-     * @param b JIS X 0208文字セットのバイト配列
+//     * @param b JIS X 0208文字セットのバイト配列
+     * @param b byte array of JIS X 0208 characters
      * @param offset 変換開始位置
      * @param len 変換を行うバイト数
-     * @return 変換した文字列
+     * @return converted string
      */
     public static String jisx0208ToString(final byte[] b, final int offset, final int len) {
         byte[] buf = new byte[len];
